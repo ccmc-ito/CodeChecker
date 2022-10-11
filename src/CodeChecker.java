@@ -35,8 +35,8 @@ public class CodeChecker {
                 System.out.printf("\033[7m<<< Test Case #%2d : %s >>>\033[0m\n", fileId, file);
 
                 try (
-                    PrintStream ps = new PrintStream(String.format("%s%s", dir, checkerFileName));
-                    PrintStream es = new PrintStream(String.format("%s%s", dir, errorFileName));
+                    PrintStream ps = new PrintStream(String.format("%s%s", dir, checkerFileName), "UTF-8");
+                    PrintStream es = new PrintStream(String.format("%s%s", dir, errorFileName), "UTF-8");
                 ) {
                     System.setOut(ps);
                     System.setErr(es);
@@ -102,7 +102,10 @@ public class CodeChecker {
                             else System.out.println("\033[41mWrong Answer\033[0m");
                         }
                     }
-
+                } catch(Exception e) {
+                    System.err.println("Input System ERROR");
+                    return;
+                } finally {
                     errorFile.delete();
                     checkerFile.delete();
                 }
