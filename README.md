@@ -2,6 +2,14 @@
 
 本プログラムは、コーディングテスト向けの実行クラスを有しています。サンプルケースとなるファイルを用意して、一斉に検査することが可能です。
 
+## 利用方法
+
+1. **/src/<strong style="color:red;">Main.java</strong>** に解答プログラムを書く。
+1. **/src/<strong style="color:red;">TestCases/</strong>** にテストケースを作成する。
+    + テストケース1なら **in1.txt** に入力データを、**out1.txt** に出力データを書く。
+    + テストケース数に応じて、**in&lt;X&gt;.txt** や **out&lt;X&gt;.txt**を削除・作成して個数を調整する。
+1. **/src/<strong style="color:red;">CodeChecker.java</strong>** を実行する。
+
 ## 実行クラス
 
 次の3つの実行クラスがあります。
