@@ -24,6 +24,9 @@ public class CodeChecker {
         String errorFileName = ".error";
         String dir = "./src/TestCases/";
 
+        File errorFile = new File(String.format("%s%s", dir, errorFileName));
+        File checkerFile = new File(String.format("%s%s", dir, checkerFileName));
+
         System.out.println();
 
         for (int fileId = 1;; fileId++) {
@@ -54,9 +57,7 @@ public class CodeChecker {
                 }
 
                 String correctFileName = String.format("out%d.txt", fileId);
-                File errorFile = new File(String.format("%s%s", dir, errorFileName));
                 File correctFile = new File(String.format("%s%s", dir, correctFileName));
-                File checkerFile = new File(String.format("%s%s", dir, checkerFileName));
                 try (
                     FileInputStream correct = new FileInputStream(correctFile);
                     FileInputStream checker = new FileInputStream(checkerFile);
@@ -98,16 +99,13 @@ public class CodeChecker {
                                 }
                             }
 
-                            if (isCorrect) System.out.println("\033[46mPass\033[0m");
+                            if (isCorrect) System.out.println("\033[46mPassed\033[0m");
                             else System.out.println("\033[41mWrong Answer\033[0m");
                         }
                     }
                 } catch(Exception e) {
                     System.err.println("Input System ERROR");
                     return;
-                } finally {
-                    errorFile.delete();
-                    checkerFile.delete();
                 }
             } catch (FileNotFoundException e) {
                 break;
@@ -116,6 +114,8 @@ public class CodeChecker {
                 return;
             } finally {
                 System.setIn(defaultSystemIn);
+                errorFile.delete();
+                checkerFile.delete();
             }
 
             System.out.println();
