@@ -78,20 +78,20 @@ public class CodeChecker {
                         ) {
                             boolean isCorrect = true;
                             while (s1.hasNextLine() && s2.hasNextLine()) {
-                                if (!s1.nextLine().trim().equals(s2.nextLine().trim())) {
+                                if (!s1.nextLine().replaceAll("\\s+$", "").equals(s2.nextLine().replaceAll("\\s+$", ""))) {
                                     isCorrect = false;
                                     break;
                                 }
                             }
                             if (isCorrect) {
                                 while (s1.hasNextLine()) {
-                                    if (!s1.nextLine().trim().isEmpty()) {
+                                    if (!s1.nextLine().replaceAll("\\s+$", "").isEmpty()) {
                                         isCorrect = false;
                                         break;
                                     }
                                 }
                                 while (s2.hasNextLine()) {
-                                    if (!s2.nextLine().trim().isEmpty()) {
+                                    if (!s2.nextLine().replaceAll("\\s+$", "").isEmpty()) {
                                         isCorrect = false;
                                         break;
                                     }
