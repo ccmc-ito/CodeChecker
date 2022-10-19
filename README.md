@@ -4,11 +4,20 @@
 
 ## 利用方法
 
-1. **/src/<strong style="color:red;">Main.java</strong>** に解答プログラムを書く。
-1. **/src/<strong style="color:red;">TestCases/</strong>** にテストケースを作成する。
+### 正誤判定<small style="font-size:0.75em;">（Main.javaが正答か判定する）</small>
+1. **/src/>Main.java** に解答プログラムを書く。
+1. **/src/TestCases/** にテストケースを作成する。
     + テストケース1なら **in1.txt** に入力データを、**out1.txt** に出力データを書く。
-    + テストケース数に応じて、**in&lt;X&gt;.txt** や **out&lt;X&gt;.txt**を削除・作成して個数を調整する。
-1. **/src/<strong style="color:red;">CodeChecker.java</strong>** を実行する。
+    + テストケース数に応じて、**in<span style="color:blue;">&lt;X&gt;</span>.txt** や **out<span style="color:blue;">&lt;X&gt;</span>.txt**を削除・作成して個数を調整する。
+1. **/src/<span style="color:red;">CodeChecker.java</span>** を実行する。
+
+### デバッグ<small style="font-size:0.75em;">（Main.javaに付けたブレークポイントを利用する）</small>
+1. **/src/Main.java** に解答プログラムを書く。
+1. **/src/Main.java** にブレークポイントを付ける。
+1. **/src/TestCases/** にテストケースを作成する。
+    + テストケース1なら **in1.txt** に入力データを書く。
+    + テストケース数に応じて、**in<span style="color:blue;">&lt;X&gt;</span>.txt** を削除・作成して個数を調整する。
+1. **/src/<span style="color:red;">CodeRunner.java</span>** を実行する。
 
 ## 実行クラス
 
@@ -17,8 +26,8 @@
 |クラス|用途|
 |-|-|
 |Main|解答用|
-|CodeRunner|一斉実行用|
 |CodeChecker|正誤判定|
+|CodeRunner|一斉実行・デバッグ用|
 
 ### Mainクラス
 解答用のソースコードを書きます。クラス名は必ず**Main**にしてください。
@@ -29,15 +38,15 @@ Windows環境でJava 17以下を利用する場合は、文字コードに注意
 
 ただし、入力データにひらがな・カタカナ・漢字などのマルチバイト文字が含まれていないのであれば、文字コードを指定しなくても問題ありません。
 
-### CodeRunnerクラス
-実行するとMainクラスのmainメソッドを繰り返し処理します。このときの入力データはTestCasesフォルダ内のテキストファイルから自動入力されます。
-
-自動入力に利用するファイルは「in1.txt」「in2.txt」のように「in<strong>&lt;X&gt;</strong>.txt」というファイル名のものが順に選択されます。
-
 ### CodeCheckerクラス
 実行するCodeRunnerクラスと同様にテキストファイルから入力データを取得して、一斉に処理します。その上で、用意された出力ファイルと一致するか正誤を判定して結果を表示します。
 
-出力の検査に利用するファイルは「out1.txt」「out2.txt」のように「out<strong>&lt;X&gt;</strong>.txt」というファイル名のものが順に選択されます。
+出力の検査に利用するファイルは「out1.txt」「out2.txt」のように「out<span style="color:blue;">&lt;X&gt;</span>.txt」というファイル名のものが順に選択されます。
+
+### CodeRunnerクラス
+実行するとMainクラスのmainメソッドを繰り返し処理します。このときの入力データはTestCasesフォルダ内のテキストファイルから自動入力されます。
+
+自動入力に利用するファイルは「in1.txt」「in2.txt」のように「in<span style="color:blue;">&lt;X&gt;</span>.txt」というファイル名のものが順に選択されます。
 
 ## テストケース
 
@@ -45,7 +54,7 @@ Windows環境でJava 17以下を利用する場合は、文字コードに注意
 
 |ファイル|用途|
 |-|-|
-|in<strong style="color:red;">&lt;X&gt;</strong>.txt|入力データ|
-|out<strong style="color:red;">&lt;X&gt;</strong>.txt|出力データ|
+|in<span style="color:blue;">&lt;X&gt;</span>.txt|入力データ|
+|out<span style="color:blue;">&lt;X&gt;</span>.txt|出力データ|
 |.checker|正誤判定用一時ファイル|
 |.error|エラー発生判定用一時ファイル|
