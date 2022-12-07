@@ -24,6 +24,9 @@ public class CodeChecker {
         String errorFileName = ".error";
         String dir = "./src/TestCases/";
 
+        File errorFile = new File(String.format("%s%s", dir, errorFileName));
+        File checkerFile = new File(String.format("%s%s", dir, checkerFileName));
+
         System.out.println();
 
         for (int fileId = 1;; fileId++) {
@@ -35,8 +38,8 @@ public class CodeChecker {
                 System.out.printf("\033[7m<<< Test Case #%2d : %s >>>\033[0m\n", fileId, file);
 
                 try (
-                    PrintStream ps = new PrintStream(String.format("%s%s", dir, checkerFileName));
-                    PrintStream es = new PrintStream(String.format("%s%s", dir, errorFileName));
+                    PrintStream ps = new PrintStream(String.format("%s%s", dir, checkerFileName), "UTF-8");
+                    PrintStream es = new PrintStream(String.format("%s%s", dir, errorFileName), "UTF-8");
                 ) {
                     System.setOut(ps);
                     System.setErr(es);
@@ -54,9 +57,7 @@ public class CodeChecker {
                 }
 
                 String correctFileName = String.format("out%d.txt", fileId);
-                File errorFile = new File(String.format("%s%s", dir, errorFileName));
                 File correctFile = new File(String.format("%s%s", dir, correctFileName));
-                File checkerFile = new File(String.format("%s%s", dir, checkerFileName));
                 try (
                     FileInputStream correct = new FileInputStream(correctFile);
                     FileInputStream checker = new FileInputStream(checkerFile);
@@ -78,33 +79,33 @@ public class CodeChecker {
                         ) {
                             boolean isCorrect = true;
                             while (s1.hasNextLine() && s2.hasNextLine()) {
-                                if (!s1.nextLine().trim().equals(s2.nextLine().trim())) {
+                                if (!s1.nextLine().replaceAll("\\s+$", "").equals(s2.nextLine().replaceAll("\\s+$", ""))) {
                                     isCorrect = false;
                                     break;
                                 }
                             }
                             if (isCorrect) {
                                 while (s1.hasNextLine()) {
-                                    if (!s1.nextLine().trim().isEmpty()) {
+                                    if (!s1.nextLine().replaceAll("\\s+$", "").isEmpty()) {
                                         isCorrect = false;
                                         break;
                                     }
                                 }
                                 while (s2.hasNextLine()) {
-                                    if (!s2.nextLine().trim().isEmpty()) {
+                                    if (!s2.nextLine().replaceAll("\\s+$", "").isEmpty()) {
                                         isCorrect = false;
                                         break;
                                     }
                                 }
                             }
 
-                            if (isCorrect) System.out.println("\033[46mPass\033[0m");
+                            if (isCorrect) System.out.println("\033[46mPassed\033[0m");
                             else System.out.println("\033[41mWrong Answer\033[0m");
                         }
                     }
-
-                    errorFile.delete();
-                    checkerFile.delete();
+                } catch(Exception e) {
+                    System.err.println("Input System ERROR");
+                    return;
                 }
             } catch (FileNotFoundException e) {
                 break;
@@ -113,6 +114,8 @@ public class CodeChecker {
                 return;
             } finally {
                 System.setIn(defaultSystemIn);
+                errorFile.delete();
+                checkerFile.delete();
             }
 
             System.out.println();
